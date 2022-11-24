@@ -59,7 +59,7 @@ pub enum Error {
     InvalidUuid4Version,
 }
 
-#[derive(Debug, Clone, Deserialize, Error)]
+#[derive(Debug, Clone, Deserialize, Serialize, Error)]
 #[serde(rename_all = "camelCase")]
 #[error("Meilisearch {}: {}: {}. {}", .error_type, .error_code, .error_message, .error_link)]
 pub struct MeilisearchError {
