@@ -6,7 +6,7 @@ use crate::{
     client::Client, errors::Error, errors::MeilisearchError, indexes::Index, settings::Settings,
 };
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase", tag = "type")]
 pub enum TaskType {
     Customs,
@@ -33,7 +33,7 @@ pub enum TaskType {
     },
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct TasksResults {
     pub results: Vec<Task>,
     pub limit: u32,
