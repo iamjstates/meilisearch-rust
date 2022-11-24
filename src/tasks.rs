@@ -41,7 +41,7 @@ pub struct TasksResults {
     pub next: Option<u32>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DocumentAdditionOrUpdate {
     pub indexed_documents: Option<usize>,
@@ -78,7 +78,7 @@ pub struct DumpCreation {
     pub dump_uid: Option<String>,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct FailedTask {
     pub error: MeilisearchError,
@@ -101,7 +101,7 @@ where
     Ok(iso_duration.to_std())
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SucceededTask {
     #[serde(deserialize_with = "deserialize_duration")]
@@ -124,7 +124,7 @@ impl AsRef<u32> for SucceededTask {
     }
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct EnqueuedTask {
     #[serde(with = "time::serde::rfc3339")]
@@ -141,7 +141,7 @@ impl AsRef<u32> for EnqueuedTask {
     }
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase", tag = "status")]
 pub enum Task {
     Enqueued {
