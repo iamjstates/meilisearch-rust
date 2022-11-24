@@ -33,7 +33,7 @@ pub enum MatchingStrategies {
 
 /// A single result.
 /// Contains the complete object, optionally the formatted object, and optionally an object that contains information about the matches.
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct SearchResult<T> {
     /// The full result.
     #[serde(flatten)]
@@ -46,7 +46,7 @@ pub struct SearchResult<T> {
     pub matches_position: Option<HashMap<String, Vec<MatchRange>>>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 /// A struct containing search results and other information about the search.
 pub struct SearchResults<T> {
