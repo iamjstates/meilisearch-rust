@@ -675,7 +675,6 @@ mod test {
             .execute()
             .await;
 
-        // let _ = client.get_tasks(&query).await;
         mock_res.assert();
         Ok(())
     }
