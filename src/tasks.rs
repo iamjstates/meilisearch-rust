@@ -7,7 +7,7 @@ use crate::{
     task_info::TaskInfo, SwapIndexes,
 };
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase", tag = "type")]
 pub enum TaskType {
     Customs,
@@ -46,7 +46,7 @@ pub enum TaskType {
     },
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct TasksResults {
     pub results: Vec<Task>,
     pub limit: u32,
@@ -54,55 +54,55 @@ pub struct TasksResults {
     pub next: Option<u32>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DocumentAdditionOrUpdate {
     pub indexed_documents: Option<usize>,
     pub received_documents: usize,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DocumentDeletion {
     pub provided_ids: Option<usize>,
     pub deleted_documents: Option<usize>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct IndexCreation {
     pub primary_key: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct IndexUpdate {
     pub primary_key: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct IndexDeletion {
     pub deleted_documents: Option<usize>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SnapshotCreation {}
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DumpCreation {
     pub dump_uid: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct IndexSwap {
     pub swaps: Vec<SwapIndexes>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct TaskCancelation {
     pub matched_tasks: usize,
@@ -110,7 +110,7 @@ pub struct TaskCancelation {
     pub original_filter: String,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct TaskDeletion {
     pub matched_tasks: usize,
@@ -118,7 +118,7 @@ pub struct TaskDeletion {
     pub original_filter: String,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Serialize,Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct FailedTask {
     pub error: MeilisearchError,
@@ -141,7 +141,7 @@ where
     Ok(iso_duration.to_std())
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SucceededTask {
     #[serde(deserialize_with = "deserialize_duration")]
@@ -166,7 +166,7 @@ impl AsRef<u32> for SucceededTask {
     }
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct EnqueuedTask {
     #[serde(with = "time::serde::rfc3339")]
@@ -183,7 +183,7 @@ impl AsRef<u32> for EnqueuedTask {
     }
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase", tag = "status")]
 pub enum Task {
     Enqueued {
